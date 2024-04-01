@@ -6,7 +6,7 @@
 - Electron
 - Vite
 
-## Instalation
+## Installation
 To install and run the project locally, follow these steps:
 - Install Node.js: https://nodejs.org/en/download
 - Clone the repository: git clone https://github.com/xNTFx/react-electron-learning-app.git
