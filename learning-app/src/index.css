@@ -1,0 +1,50 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'Numbia';
+  src: url('./assets/Nunito-VariableFont_wght.ttf');
+}
+
+body {
+  font-family: 'Numbia';
+}
+
+img{
+  display: inline;
+}
+
+#root {
+  overflow: hidden;
+  height: 100vh;
+  color: white;
+  background-color: black;
+}
+
+svg {
+  display: inline;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.gutter {
+  background-color: red;
+  background-repeat: no-repeat;
+  background-position: 50%;
+}
+
+.gutter.gutter-horizontal {
+  background-image: url('assets/grip-vertical.svg');
+  background-size: 1rem;
+  cursor: col-resize;
+  background-color: blue;
+}
+
+.split {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
