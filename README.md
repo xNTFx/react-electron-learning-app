@@ -4,6 +4,7 @@
 - React
 - Typescript
 - Electron
+- Tailwind
 - Vite
 
 ## Installation
