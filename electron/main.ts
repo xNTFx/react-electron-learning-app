@@ -1,4 +1,4 @@
-import { BrowserWindow, app, protocol } from 'electron';
+import { BrowserWindow, app, protocol, nativeTheme } from 'electron';
 import fs from 'fs';
 import path from 'node:path';
 
