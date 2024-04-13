@@ -2,12 +2,12 @@ import { BrowserWindow, app, protocol, nativeTheme } from 'electron';
 import fs from 'fs';
 import path from 'node:path';
 
-import NodeRequests from "../../react-electron-learning-app/src/API/nodeFileSystem/NodeRequests";
-import sqLiteDeleteRequests from "../../react-electron-learning-app/src/API/sqLite//sqLiteDeleteRequest";
-import db from "../../react-electron-learning-app/src/API/sqLite/sqLite";
-import sqLiteGetRequests from "../../react-electron-learning-app/src/API/sqLite/sqLiteGetRequests";
-import sqLitePostRequests from "../../react-electron-learning-app/src/API/sqLite/sqLitePostRequests";
-import sqLiteUpdateRequests from "../../react-electron-learning-app/src/API/sqLite/sqLiteUpdateRequest";
+import NodeRequests from "../../QuizLingo-main/src/API/nodeFileSystem/NodeRequests";
+import sqLiteDeleteRequests from "../../QuizLingo-main/src/API/sqLite//sqLiteDeleteRequest";
+import db from "../../QuizLingo-main/src/API/sqLite/sqLite";
+import sqLiteGetRequests from "../../QuizLingo-main/src/API/sqLite/sqLiteGetRequests";
+import sqLitePostRequests from "../../QuizLingo-main/src/API/sqLite/sqLitePostRequests";
+import sqLiteUpdateRequests from "../../QuizLingo-main/src/API/sqLite/sqLiteUpdateRequest";
 
 // The built directory structure
 //
