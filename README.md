@@ -7,6 +7,10 @@
 - Tailwind
 - Vite
 
+## Demo 
+![AnimationQuizApp](https://github.com/xNTFx/QuizLingo/assets/135262384/eca8049a-87d6-4c87-af32-c02233576b3c)
+
+
 ## Installation
 To install and run the project locally, follow these steps:
 - Install Node.js: https://nodejs.org/en/download
