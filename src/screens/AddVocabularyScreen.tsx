@@ -110,7 +110,7 @@ export default function AddVocabularyScreen({
   if (deckListIsLoading || deckListIsLoading) return <div>Loading...</div>;
 
   return (
-    <div className="flex h-[calc(100vh-3rem)] flex-col items-center justify-center overflow-auto bg-[#1F1F1F]">
+    <main className="flex h-[calc(100vh-3rem)] flex-col items-center justify-center overflow-auto bg-[#1F1F1F]">
       <div className="mt-10 w-8/12 bg-black">
         {!selectedDeck && id === '0' ? (
           <DeckSelection
@@ -178,6 +178,6 @@ export default function AddVocabularyScreen({
           {selectedDeck ? 'Update vocabulary' : 'Post vocabulary'}
         </button>
       </div>
-    </div>
+    </main>
   );
 }

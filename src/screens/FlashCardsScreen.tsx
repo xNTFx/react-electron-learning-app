@@ -1,12 +1,12 @@
-import DOMPurify from 'dompurify';
-import { useEffect, useRef, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import DOMPurify from "dompurify";
+import { useEffect, useRef, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
-import { useGetVocabularyToReviewQuery } from '../API/Redux/reduxQueryFetch';
-import AudioButton from '../components/AudioButton';
-import useSuperMemo2Implementation from '../hooks/useSuperMemo2Implementation';
-import { extractSingleAudioAndImageSrc } from '../utils/extractAudioAndImageSrc';
-import { GetVocabularyToReviewType } from '../types/APITypes';
+import { useGetVocabularyToReviewQuery } from "../API/Redux/reduxQueryFetch";
+import AudioButton from "../components/AudioButton";
+import useSuperMemo2Implementation from "../hooks/useSuperMemo2Implementation";
+import { extractSingleAudioAndImageSrc } from "../utils/extractAudioAndImageSrc";
+import { GetVocabularyToReviewType } from "../types/APITypes";
 
 export default function FlashCardsScreen() {
   const navigate = useNavigate();
@@ -49,7 +49,7 @@ export default function FlashCardsScreen() {
     ease_factor: number,
     repetition: number,
     interval: number,
-    quality: number,
+    quality: number
   ) {
     if (!data) return;
     superMemo2Implementation(
@@ -58,7 +58,7 @@ export default function FlashCardsScreen() {
       ease_factor,
       repetition,
       interval,
-      quality,
+      quality
     );
     if (reviewIndex < vocabulary?.length - 1) {
       setReviewIndex((prev) => (prev += 1));
@@ -84,10 +84,10 @@ export default function FlashCardsScreen() {
     if (!data) return;
     const sanitizedFrontHtml = DOMPurify.sanitize(item.front_word_html);
     const sanitizedFrontDescHtml = DOMPurify.sanitize(
-      item.front_desc_html ?? '',
+      item.front_desc_html ?? ""
     );
     return (
-      <>
+      <article>
         <div className="flex h-full flex-col gap-2">
           <div className="h-full overflow-auto break-all rounded-lg bg-[#2C2C2C] p-6">
             <div className="flex w-full flex-col justify-center gap-4 text-center">
@@ -112,7 +112,7 @@ export default function FlashCardsScreen() {
             </div>
           </div>
         </div>
-      </>
+      </article>
     );
   }
 
@@ -121,13 +121,13 @@ export default function FlashCardsScreen() {
     const item = vocabulary[reviewIndex];
     const sanitizedFrontHtml = DOMPurify.sanitize(item.front_word_html);
     const sanitizedFrontDescHtml = DOMPurify.sanitize(
-      item.front_desc_html ?? '',
+      item.front_desc_html ?? ""
     );
     const sanitizedBack = DOMPurify.sanitize(
-      item.back_word_html + item.back_desc_html,
+      item.back_word_html + item.back_desc_html
     );
     return (
-      <>
+      <article>
         <div className="flex h-full flex-col gap-2">
           <div className="h-full overflow-auto break-all rounded-lg bg-[#2C2C2C] p-6">
             <div className="flex w-full flex-col justify-center gap-4 text-center">
@@ -160,11 +160,11 @@ export default function FlashCardsScreen() {
                   handleDifficulty(
                     item.review_id,
                     item.vocabulary_id,
-                    'easy',
+                    "easy",
                     item.ease_factor,
                     item.repetition,
                     item.interval,
-                    5,
+                    5
                   )
                 }
                 className="flex items-center justify-center rounded-lg border-2 border-solid border-green-600 px-2 py-1 font-bold hover:bg-green-600"
@@ -176,11 +176,11 @@ export default function FlashCardsScreen() {
                   handleDifficulty(
                     item.review_id,
                     item.vocabulary_id,
-                    'good',
+                    "good",
                     item.ease_factor,
                     item.repetition,
                     item.interval,
-                    4,
+                    4
                   )
                 }
                 className="flex items-center justify-center rounded-lg border-2 border-solid border-gray-400 px-2 py-1 font-bold hover:bg-gray-400 hover:text-black"
@@ -192,11 +192,11 @@ export default function FlashCardsScreen() {
                   handleDifficulty(
                     item.review_id,
                     item.vocabulary_id,
-                    'hard',
+                    "hard",
                     item.ease_factor,
                     item.repetition,
                     item.interval,
-                    3,
+                    3
                   )
                 }
                 className="flex items-center justify-center rounded-lg border-2 border-solid border-orange-600 px-2 py-1 font-bold hover:bg-red-600"
@@ -208,11 +208,11 @@ export default function FlashCardsScreen() {
                   handleDifficulty(
                     item.review_id,
                     item.vocabulary_id,
-                    'again',
+                    "again",
                     item.ease_factor,
                     item.repetition,
                     item.interval,
-                    0,
+                    0
                   )
                 }
                 className="flex items-center justify-center rounded-lg border-2 border-solid border-red-600 px-2 py-1 font-bold hover:bg-orange-600"
@@ -222,17 +222,17 @@ export default function FlashCardsScreen() {
             </div>
           </div>
         </div>
-      </>
+      </article>
     );
   }
 
   function FlashcardEndScreen() {
     return (
-      <div className="flex h-5/6 items-start justify-center">
+      <article className="flex h-5/6 items-start justify-center">
         <div className="flex max-w-[70vw] flex-col items-center justify-start gap-5 overflow-auto rounded-md bg-[#2C2C2C] p-10 text-white">
-          <h1 className="text-3xl text-green-500">
+          <h2 className="text-3xl text-green-500">
             You completed the session!
-          </h1>
+          </h2>
           <div className="flex flex-row gap-5">
             <p>
               <span className="text-green-600">Easy: </span>
@@ -258,33 +258,33 @@ export default function FlashCardsScreen() {
             Go back to menu
           </button>
         </div>
-      </div>
+      </article>
     );
   }
 
   function NoVocabularyScreen() {
     return (
-      <div className="flex h-[calc(100vh-3rem)] items-center justify-center bg-[#1F1F1F] font-bold text-white">
+      <article className="flex h-[calc(100vh-3rem)] items-center justify-center bg-[#1F1F1F] font-bold text-white">
         <div className="flex h-2/5 flex-col items-center justify-center gap-3">
-          <h1 className="text-3xl">No vocabulary to learn</h1>
+          <h2 className="text-3xl">No vocabulary to learn</h2>
           <button
-            onClick={() => navigate('/')}
+            onClick={() => navigate("/")}
             className="rounded-xl bg-[#382bf0] p-2 font-extrabold hover:bg-[#5e43f3]"
           >
             Go back to decks
           </button>
         </div>
-      </div>
+      </article>
     );
   }
   if (vocabulary.length === 0) return <NoVocabularyScreen />;
 
   return (
-    <div className="flex h-[calc(100vh-3rem)] justify-center overflow-auto bg-[#1F1F1F] py-10">
+    <main className="flex h-[calc(100vh-3rem)] justify-center overflow-auto bg-[#1F1F1F] py-10">
       {!isEnd ? (
         <div
           className={`relative flex h-[90%] w-8/12 flex-col items-center rounded-xl text-white transition-all duration-500 [transform-style:preserve-3d] max-md:w-10/12 ${
-            isFrontPage ? '' : '[transform:rotateY(180deg)]'
+            isFrontPage ? "" : "[transform:rotateY(180deg)]"
           }`}
         >
           <div className="absolute inset-0 [backface-visibility:hidden]">
@@ -297,6 +297,6 @@ export default function FlashCardsScreen() {
       ) : (
         <FlashcardEndScreen />
       )}
-    </div>
+    </main>
   );
 }

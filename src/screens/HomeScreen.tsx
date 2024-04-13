@@ -1,21 +1,21 @@
-import { Menu, MenuItem, ThemeProvider, createTheme } from '@mui/material';
-import '@sweetalert2/theme-dark/dark.css';
-import { debounce } from 'lodash';
-import React, { useEffect, useState } from 'react';
-import { FaGear } from 'react-icons/fa6';
-import InfiniteScroll from 'react-infinite-scroll-component';
-import { useNavigate } from 'react-router-dom';
+import { Menu, MenuItem, ThemeProvider, createTheme } from "@mui/material";
+import "@sweetalert2/theme-dark/dark.css";
+import { debounce } from "lodash";
+import React, { useEffect, useState } from "react";
+import { FaGear } from "react-icons/fa6";
+import InfiniteScroll from "react-infinite-scroll-component";
+import { useNavigate } from "react-router-dom";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-expect-error
-import Swal from 'sweetalert2/dist/sweetalert2.min.js';
+import Swal from "sweetalert2/dist/sweetalert2.min.js";
 
 import {
   useCreateDeckMutation,
   useGetDecksWithLimitQuery,
   useUpdateDeckMutation,
-} from '../API/Redux/reduxQueryFetch';
-import useHandleDeckRemove from '../hooks/useHandleDeckRemove';
-import { GetDeckWithCountType } from '../types/APITypes';
+} from "../API/Redux/reduxQueryFetch";
+import useHandleDeckRemove from "../hooks/useHandleDeckRemove";
+import { GetDeckWithCountType } from "../types/APITypes";
 
 export default function HomeScreen() {
   const itemHeight = 35;
@@ -40,7 +40,7 @@ export default function HomeScreen() {
 
   const darkTheme = createTheme({
     palette: {
-      mode: 'dark',
+      mode: "dark",
     },
   });
 
@@ -49,13 +49,13 @@ export default function HomeScreen() {
       setLimit(Math.ceil(window.innerHeight / itemHeight) + 1);
     }, 100);
 
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   function handleClick(
     event: React.MouseEvent<HTMLButtonElement>,
-    deckId: number,
+    deckId: number
   ) {
     setAnchorEl(event.currentTarget);
     setSelectedDeckId(deckId);
@@ -69,11 +69,11 @@ export default function HomeScreen() {
   function updateDeckFunction(deckId: number, deckName: string) {
     handleClose();
     Swal.fire({
-      title: 'Rename the deck',
-      input: 'text',
+      title: "Rename the deck",
+      input: "text",
       inputValue: deckName,
       showCancelButton: true,
-      confirmButtonText: 'Submit',
+      confirmButtonText: "Submit",
       showLoaderOnConfirm: true,
       preConfirm: (input: string) => {
         if (input.trim() !== deckName) {
@@ -86,11 +86,11 @@ export default function HomeScreen() {
   function handleDeckRemoveFunction(deckId: number) {
     handleClose();
     Swal.fire({
-      title: 'Are you sure you want to delete the deck?',
-      icon: 'question',
-      inputAttributes: { autocapitalize: 'off' },
+      title: "Are you sure you want to delete the deck?",
+      icon: "question",
+      inputAttributes: { autocapitalize: "off" },
       showCancelButton: true,
-      confirmButtonText: 'Delete',
+      confirmButtonText: "Delete",
       showLoaderOnConfirm: true,
       preConfirm: (response: boolean) => {
         if (response) {
@@ -103,17 +103,17 @@ export default function HomeScreen() {
   function createDeckFunction() {
     handleClose();
     Swal.fire({
-      title: 'Write a deck name',
-      input: 'text',
-      inputAttributes: { autocapitalize: 'off' },
+      title: "Write a deck name",
+      input: "text",
+      inputAttributes: { autocapitalize: "off" },
       showCancelButton: true,
-      confirmButtonText: 'Submit',
+      confirmButtonText: "Submit",
       showLoaderOnConfirm: true,
       preConfirm: async (input: string) => {
         try {
           createDeck(input.trim());
         } catch (error) {
-          console.error('An error occurred while creating the deck:', error);
+          console.error("An error occurred while creating the deck:", error);
         }
       },
     });
@@ -135,7 +135,7 @@ export default function HomeScreen() {
   }
 
   return (
-    <div className="flex h-[calc(100vh-3rem)] select-none flex-col items-center bg-[#1F1F1F]">
+    <main className="flex h-[calc(100vh-3rem)] select-none flex-col items-center bg-[#1F1F1F]">
       <div
         id="scrollableDiv"
         className="mt-10 box-border flex max-h-[80%] flex-col gap-2 overflow-auto rounded-lg bg-[#2C2C2C] p-4 text-white shadow-md"
@@ -172,10 +172,10 @@ export default function HomeScreen() {
                     </button>
                   </td>
                   <td className="px-2 pl-8 text-blue-700">
-                    {deck.new ? deck.new : '0'}
+                    {deck.new ? deck.new : "0"}
                   </td>
                   <td className="px-2 text-green-400">
-                    {deck.review ? deck.review : '0'}
+                    {deck.review ? deck.review : "0"}
                   </td>
                   <td className="relative px-2 text-center">
                     <button
@@ -222,6 +222,6 @@ export default function HomeScreen() {
           Create Deck
         </button>
       </div>
-    </div>
+    </main>
   );
 }

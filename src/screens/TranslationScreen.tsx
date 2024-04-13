@@ -1,12 +1,12 @@
-import DOMPurify from 'dompurify';
-import { useEffect, useRef, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import DOMPurify from "dompurify";
+import { useEffect, useRef, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
-import { useGetVocabularyToReviewQuery } from '../API/Redux/reduxQueryFetch';
-import AudioButton from '../components/AudioButton';
-import useSuperMemo2Implementation from '../hooks/useSuperMemo2Implementation';
-import { GetVocabularyToReviewType } from '../types/APITypes';
-import { extractSingleAudioAndImageSrc } from '../utils/extractAudioAndImageSrc';
+import { useGetVocabularyToReviewQuery } from "../API/Redux/reduxQueryFetch";
+import AudioButton from "../components/AudioButton";
+import useSuperMemo2Implementation from "../hooks/useSuperMemo2Implementation";
+import { GetVocabularyToReviewType } from "../types/APITypes";
+import { extractSingleAudioAndImageSrc } from "../utils/extractAudioAndImageSrc";
 
 export default function TranslationScreen() {
   const navigate = useNavigate();
@@ -22,9 +22,9 @@ export default function TranslationScreen() {
   const [reviewIndex, setReviewIndex] = useState(0);
   const [answerType, setAnswerType] = useState({ wrong: 0, correct: 0 });
   const [isEnd, setIsEnd] = useState(false);
-  const [inputValue, setInputValue] = useState('');
+  const [inputValue, setInputValue] = useState("");
   const [correctVocabulary, setCorrectVocabulary] = useState<string | null>(
-    null,
+    null
   );
   const [isInputErrorMessage, setIsInputErrorMessage] = useState(false);
 
@@ -55,7 +55,7 @@ export default function TranslationScreen() {
           item.ease_factor,
           item.repetition,
           item.repetition,
-          5,
+          5
         );
       } else {
         superMemo2Implementation(
@@ -64,7 +64,7 @@ export default function TranslationScreen() {
           item.ease_factor,
           item.repetition,
           item.repetition,
-          0,
+          0
         );
       }
 
@@ -81,7 +81,7 @@ export default function TranslationScreen() {
   function handleNextVocabulary() {
     const isAnswerCorrect = inputValue.trim() === item?.back_word;
 
-    const difficulty = isAnswerCorrect ? 'correct' : 'wrong';
+    const difficulty = isAnswerCorrect ? "correct" : "wrong";
     setAnswerType((prev) => ({
       ...prev,
       [difficulty]: prev[difficulty as keyof typeof prev] + 1,
@@ -89,7 +89,7 @@ export default function TranslationScreen() {
     if (reviewIndex < vocabulary?.length - 1) {
       setReviewIndex((prev) => (prev += 1));
       setIsFrontPage(true);
-      setInputValue('');
+      setInputValue("");
     }
     if (reviewIndex === vocabulary?.length - 1) {
       setIsEnd(true);
@@ -99,37 +99,35 @@ export default function TranslationScreen() {
   function handleShowAnswerMessage() {
     if (isFrontPage) return null;
     return (
-      <div className="mb-2 flex w-8/12 flex-col items-center justify-start">
+      <article className="mb-2 flex w-8/12 flex-col items-center justify-start">
         <div className="flex w-full flex-col">
           {correctVocabulary === inputValue.trim() ? (
             <div className="rounded-md bg-green-200 p-2 font-bold text-green-700">
-              <h1>Your Answer</h1>
-              <h2>{inputValue}</h2>
+              <h2>Your Answer: {inputValue}</h2>
             </div>
           ) : (
             <div className="rounded-md bg-red-200 p-2 font-bold text-red-700">
-              <h1>Your Answer</h1>
-              <h2>{inputValue}</h2>
+              <h2>Your Answer: {inputValue}</h2>
             </div>
           )}
         </div>
-      </div>
+      </article>
     );
   }
 
   function NoVocabularyScreen() {
     return (
-      <div className="flex h-[calc(100vh-3rem)] items-center justify-center bg-[#1F1F1F] font-bold text-white">
+      <article className="flex h-[calc(100vh-3rem)] items-center justify-center bg-[#1F1F1F] font-bold text-white">
         <div className="flex h-2/5 flex-col items-center justify-center gap-3">
           <h1 className="text-3xl">No vocabulary to learn</h1>
           <button
-            onClick={() => navigate('/')}
+            onClick={() => navigate("/")}
             className="rounded-xl bg-[#382bf0] p-2 font-extrabold hover:bg-[#5e43f3]"
           >
             Go back to decks
           </button>
         </div>
-      </div>
+      </article>
     );
   }
   if (vocabulary.length === 0) return <NoVocabularyScreen />;
@@ -141,12 +139,12 @@ export default function TranslationScreen() {
 
   function frontFlashCard() {
     const item = vocabulary[reviewIndex];
-    const sanitizedFrontHtml = DOMPurify.sanitize(item.front_word_html ?? '');
+    const sanitizedFrontHtml = DOMPurify.sanitize(item.front_word_html ?? "");
     const sanitizedFrontDescHtml = DOMPurify.sanitize(
-      item.front_desc_html ?? '',
+      item.front_desc_html ?? ""
     );
     return (
-      <>
+      <article>
         <div className="flex h-full flex-col">
           <div className="h-full overflow-auto break-all rounded-t-lg bg-[#2C2C2C] p-6">
             <div className="flex w-full flex-col justify-center gap-4 text-center">
@@ -194,21 +192,21 @@ export default function TranslationScreen() {
             </div>
           </form>
         </div>
-      </>
+      </article>
     );
   }
 
   function backFlashCard() {
     const sanitizedFrontHtml = DOMPurify.sanitize(item.front_word_html);
     const sanitizedFrontDescHtml = DOMPurify.sanitize(
-      item.front_desc_html ?? '',
+      item.front_desc_html ?? ""
     );
     const sanitizedBack = DOMPurify.sanitize(
-      item.back_word_html + (item.back_desc_html ? item.back_desc_html : ''),
+      item.back_word_html + (item.back_desc_html ? item.back_desc_html : "")
     );
 
     return (
-      <>
+      <article>
         <div className="flex h-full flex-col gap-2">
           <div className="h-full overflow-auto break-all rounded-lg bg-[#2C2C2C] p-6">
             <div className="flex w-full flex-col justify-center gap-4 text-center">
@@ -243,17 +241,17 @@ export default function TranslationScreen() {
             </button>
           </div>
         </div>
-      </>
+      </article>
     );
   }
 
   function DefaultEndScreen() {
     return (
-      <div className="flex h-5/6 items-start justify-center">
+      <article className="flex h-5/6 items-start justify-center">
         <div className="flex max-w-[70vw] flex-col items-center justify-start gap-5 overflow-auto rounded-md bg-[#2C2C2C] p-10 text-white">
-          <h1 className="text-3xl text-green-500">
+          <h2 className="text-3xl text-green-500">
             You completed the session!
-          </h1>
+          </h2>
           <div className="flex flex-row gap-5">
             <p>
               <span className="text-green-600">Correct: </span>
@@ -271,12 +269,12 @@ export default function TranslationScreen() {
             Go back to menu
           </button>
         </div>
-      </div>
+      </article>
     );
   }
 
   return (
-    <div className="flex h-[calc(100vh-3rem)] flex-col items-center justify-center overflow-auto bg-[#1F1F1F] py-10">
+    <main className="flex h-[calc(100vh-3rem)] flex-col items-center justify-center overflow-auto bg-[#1F1F1F] py-10">
       {!isEnd ? (
         <>
           {isFrontPage ? (
@@ -290,7 +288,7 @@ export default function TranslationScreen() {
           )}
           <div
             className={`relative flex h-full w-8/12 flex-col items-center rounded-xl text-white transition-all duration-500 [transform-style:preserve-3d] ${
-              isFrontPage ? '' : '[transform:rotateY(180deg)]'
+              isFrontPage ? "" : "[transform:rotateY(180deg)]"
             }`}
           >
             <div className="absolute inset-0 [backface-visibility:hidden]">
@@ -304,6 +302,6 @@ export default function TranslationScreen() {
       ) : (
         <DefaultEndScreen />
       )}
-    </div>
+    </main>
   );
 }
